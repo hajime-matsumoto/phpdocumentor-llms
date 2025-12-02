@@ -1,0 +1,35 @@
+{% autoescape false %}
+# {{ project.name }}
+
+> {{ project.summary | default('API Documentation for ' ~ project.name) }}
+
+## Overview
+
+This documentation covers the following namespaces:
+
+{% for namespace in project.indexes.namespaces | sort((a,b) => a.FullyQualifiedStructuralElementName <=> b.FullyQualifiedStructuralElementName) %}
+{% if (namespace.classes | length) > 0 or (namespace.interfaces | length) > 0 %}
+- `{{ namespace.FullyQualifiedStructuralElementName }}` ({{ namespace.classes | length }} classes{% if namespace.interfaces | length > 0 %}, {{ namespace.interfaces | length }} interfaces{% endif %})
+{% endif %}
+{% endfor %}
+
+## Classes
+
+{% for class in project.indexes.classes | sort((a,b) => a.FullyQualifiedStructuralElementName <=> b.FullyQualifiedStructuralElementName) %}
+- `{{ class.FullyQualifiedStructuralElementName }}`: {{ class.summary | default('') | replace({"\n": ' '}) | trim }}
+{% endfor %}
+
+## Interfaces
+
+{% for interface in project.indexes.interfaces | sort((a,b) => a.FullyQualifiedStructuralElementName <=> b.FullyQualifiedStructuralElementName) %}
+- `{{ interface.FullyQualifiedStructuralElementName }}`: {{ interface.summary | default('') | replace({"\n": ' '}) | trim }}
+{% endfor %}
+
+{% if project.indexes.traits | length > 0 %}
+## Traits
+
+{% for trait in project.indexes.traits | sort((a,b) => a.FullyQualifiedStructuralElementName <=> b.FullyQualifiedStructuralElementName) %}
+- `{{ trait.FullyQualifiedStructuralElementName }}`: {{ trait.summary | default('') | replace({"\n": ' '}) | trim }}
+{% endfor %}
+{% endif %}
+{% endautoescape %}

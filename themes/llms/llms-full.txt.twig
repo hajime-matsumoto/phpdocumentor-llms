@@ -1,0 +1,105 @@
+{% autoescape false %}
+# {{ project.name }} - Full API Documentation
+
+> {{ project.summary | default('Complete API documentation for ' ~ project.name) }}
+
+---
+
+{% for class in project.indexes.classes | sort((a,b) => a.FullyQualifiedStructuralElementName <=> b.FullyQualifiedStructuralElementName) %}
+## {{ class.FullyQualifiedStructuralElementName }}
+
+{% if class.summary %}{{ class.summary }}{% endif %}
+{% if class.description %}
+
+{{ class.description | raw }}
+{% endif %}
+
+- **Type**: Class{% if class.final %} (final){% endif %}{% if class.abstract %} (abstract){% endif %}
+
+{% if class.parent and class.parent is not empty %}
+- **Extends**: `{{ class.parent.FullyQualifiedStructuralElementName | default(class.parent) }}`
+{% endif %}
+{% if class.interfaces is not empty %}
+- **Implements**: {% for interface in class.interfaces %}`{{ interface.FullyQualifiedStructuralElementName | default(interface) }}`{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% endif %}
+{% if class.constants | length > 0 %}
+### Constants
+
+{% for constant in class.constants %}
+- `{{ constant.name }}`: {{ constant.type | default('mixed') }} = `{{ constant.value }}`{% if constant.summary %} - {{ constant.summary }}{% endif %}
+
+{% endfor %}
+{% endif %}
+{% if class.properties | length > 0 %}
+### Properties
+
+{% for property in class.properties %}
+- `${{ property.name }}`: {{ property.type | default('mixed') }}{% if property.visibility %} ({{ property.visibility }}){% endif %}{% if property.summary %} - {{ property.summary }}{% endif %}
+
+{% endfor %}
+{% endif %}
+{% if class.methods | length > 0 %}
+### Methods
+
+{% for method in class.methods %}
+#### {{ method.name }}()
+
+```php
+{{ method.visibility | default('public') }} {{ method.name }}({% for arg in method.arguments %}{{ arg.type | default('mixed') }} ${{ arg.name }}{% if arg.default is defined %} = {{ arg.default }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}): {{ method.response.type | default('void') }}
+```
+{% if method.summary %}
+{{ method.summary }}
+{% endif %}
+{% if method.arguments | length > 0 %}
+
+**Parameters:**
+{% for arg in method.arguments %}
+- `${{ arg.name }}` ({{ arg.type | default('mixed') }}): {{ arg.description | default('') }}
+{% endfor %}
+{% endif %}
+{% if method.response and method.response.type != 'void' %}
+
+**Returns:** {{ method.response.type }}{% if method.response.description %} - {{ method.response.description }}{% endif %}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+---
+
+{% endfor %}
+{% for interface in project.indexes.interfaces | sort((a,b) => a.FullyQualifiedStructuralElementName <=> b.FullyQualifiedStructuralElementName) %}
+## {{ interface.FullyQualifiedStructuralElementName }}
+
+{% if interface.summary %}{{ interface.summary }}{% endif %}
+{% if interface.description %}
+
+{{ interface.description | raw }}
+{% endif %}
+
+- **Type**: Interface
+{% if interface.methods | length > 0 %}
+### Methods
+
+{% for method in interface.methods %}
+#### {{ method.name }}()
+
+```php
+{{ method.name }}({% for arg in method.arguments %}{{ arg.type | default('mixed') }} ${{ arg.name }}{% if arg.default is defined %} = {{ arg.default }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}): {{ method.response.type | default('void') }}
+```
+{% if method.summary %}
+{{ method.summary }}
+{% endif %}
+{% if method.arguments | length > 0 %}
+
+**Parameters:**
+{% for arg in method.arguments %}
+- `${{ arg.name }}` ({{ arg.type | default('mixed') }}): {{ arg.description | default('') }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+---
+
+{% endfor %}
+{% endautoescape %}

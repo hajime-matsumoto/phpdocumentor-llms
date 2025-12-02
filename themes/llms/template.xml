@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>llms</name>
+    <author>Cyto Project</author>
+    <version>1.0.0</version>
+    <description>LLM-friendly single-file documentation output</description>
+    <transformations>
+        <transformation writer="twig" source="llms.txt.twig" artifact="llms.txt"/>
+        <transformation writer="twig" source="llms-full.txt.twig" artifact="llms-full.txt"/>
+    </transformations>
+</template>
