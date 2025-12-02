@@ -1,0 +1,115 @@
+# Example Project - Full API Documentation
+
+> Complete API documentation for Example Project
+
+---
+
+## \PhpDocumentorLlms\Example\User
+
+User entity.
+
+
+- **Type**: Class (final)
+### Properties
+
+- `$name`: string (public)
+- `$email`: string (public)
+### Methods
+
+#### __construct()
+
+```php
+public __construct(string $name = , string $email = ): mixed
+```
+Create a new User.
+
+**Parameters:**
+- `$name` (string): The user's name
+- `$email` (string): The user's email address
+
+**Returns:** mixed - 
+#### getDisplayName()
+
+```php
+public getDisplayName(): string
+```
+Get the user's display name.
+
+**Returns:** string - The display name
+---
+
+## \PhpDocumentorLlms\Example\UserService
+
+User management service.
+Handles user creation, retrieval, and updates.
+
+- **Type**: Class
+### Properties
+
+- `$repository`: \PhpDocumentorLlms\Example\UserRepositoryInterface (private)
+### Methods
+
+#### __construct()
+
+```php
+public __construct(\PhpDocumentorLlms\Example\UserRepositoryInterface $repository = ): mixed
+```
+Create a new UserService instance.
+
+**Parameters:**
+- `$repository` (\PhpDocumentorLlms\Example\UserRepositoryInterface): The user repository
+
+**Returns:** mixed - 
+#### findById()
+
+```php
+public findById(int $id = ): \PhpDocumentorLlms\Example\User|null
+```
+Find a user by ID.
+
+**Parameters:**
+- `$id` (int): The user ID
+
+**Returns:** \PhpDocumentorLlms\Example\User|null - The user or null if not found
+#### create()
+
+```php
+public create(string $name = , string $email = ): \PhpDocumentorLlms\Example\User
+```
+Create a new user.
+
+**Parameters:**
+- `$name` (string): The user's name
+- `$email` (string): The user's email address
+
+**Returns:** \PhpDocumentorLlms\Example\User - The created user
+---
+
+## \PhpDocumentorLlms\Example\UserRepositoryInterface
+
+User repository interface.
+
+
+- **Type**: Interface
+### Methods
+
+#### find()
+
+```php
+find(int $id = ): \PhpDocumentorLlms\Example\User|null
+```
+Find a user by ID.
+
+**Parameters:**
+- `$id` (int): The user ID
+#### save()
+
+```php
+save(\PhpDocumentorLlms\Example\User $user = ): void
+```
+Save a user.
+
+**Parameters:**
+- `$user` (\PhpDocumentorLlms\Example\User): The user to save
+---
+

@@ -1,0 +1,19 @@
+# Example Project
+
+> API Documentation for Example Project
+
+## Overview
+
+This documentation covers the following namespaces:
+
+- `\PhpDocumentorLlms\Example` (2 classes, 1 interfaces)
+
+## Classes
+
+- `\PhpDocumentorLlms\Example\User`: User entity.
+- `\PhpDocumentorLlms\Example\UserService`: User management service.
+
+## Interfaces
+
+- `\PhpDocumentorLlms\Example\UserRepositoryInterface`: User repository interface.
+

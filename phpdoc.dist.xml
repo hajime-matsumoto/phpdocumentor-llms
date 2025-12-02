@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor
+    configVersion="3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://www.phpdoc.org"
+>
+    <title>Example Project</title>
+    <paths>
+        <output>output</output>
+        <cache>.phpdoc/cache</cache>
+    </paths>
+    <version number="1.0.0">
+        <api>
+            <source dsn=".">
+                <path>test</path>
+            </source>
+            <ignore hidden="true" symlinks="true">
+                <path>**/vendor/**</path>
+            </ignore>
+            <extensions>
+                <extension>php</extension>
+            </extensions>
+            <default-package-name>Example</default-package-name>
+        </api>
+    </version>
+    <template name="themes/llms"/>
+</phpdocumentor>
